@@ -1,10 +1,14 @@
 package dev.artur.joaodatripa;
 
+import android.util.Log;
+
 /**
  * Created by DEV02 on 27/07/2017.
  */
 
 public class Item {
+
+    static String TAG = "Item class";
 
     /**The name of the product*/
     private int mName;
@@ -13,7 +17,7 @@ public class Item {
     private int mUnitPrice;
 
     /**the quantity picked in the order*/
-    private int quantity = 1;
+    private int quantity = 0;
 
     /**the total price of the desired number of this item*/
     private double mTotalPrice;
@@ -24,25 +28,15 @@ public class Item {
     /** Constant value that represents no image was provided for this item */
     private static final int NO_IMAGE_PROVIDED = -1;
 
-    /**
-     * Create a new Word object.
-     *
-     * @param name is the string resource ID for the word in a language that the
-     *                             user is already familiar with (such as English)
-     * @param price is the string resource Id for the word in the Miwok language
-     */
-    public Item(int name, int price){
-        mName = name;
-        mUnitPrice = price;
-        mTotalPrice = quantity * mUnitPrice;
-    }
+    private double mUnitPrice2;
+
 
     /**
-     * Create a new Word object.
+     * Create a new Item object.
      *
      * @param name is the string resource ID for the word in a language that the
      *                             user is already familiar with (such as English)
-     * @param price is the string resource Id for the word in the Miwok language
+     * @param price is the string resource Id for the price of the item
      */
     public Item(int name, int price, int imageResourceId){
         mName = name;
@@ -51,19 +45,31 @@ public class Item {
         mImageResourceId = imageResourceId;
     }
 
+    public Item(int name, int price, int imageResourceId, double unitPrice){
+        mName = name;
+        mUnitPrice = price;
+        mTotalPrice = getTotalPrice();
+        mImageResourceId = imageResourceId;
+        mUnitPrice2 = unitPrice;
+    }
+
     public int getName() {
         return mName;
     }
 
-    public double getUnitPrice() {
+    public int getUnitPrice() {
         return mUnitPrice;
+    }
+
+    public double getDoubleUnitPrice(){
+        return mUnitPrice2;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public int getmImageResourceId() {
+    public int getImageResourceId() {
         return mImageResourceId;
     }
 
@@ -71,7 +77,8 @@ public class Item {
         return NO_IMAGE_PROVIDED;
     }
 
-    public double getmTotalPrice() {
+    public double getTotalPrice() {
+        mTotalPrice = mUnitPrice2 * quantity;
         return mTotalPrice;
     }
 
@@ -90,4 +97,27 @@ public class Item {
         return mImageResourceId != NO_IMAGE_PROVIDED;
     }
 
+    public boolean increment(){
+        if (quantity >= 0 && quantity < 24) {
+            quantity++;
+            return true;
+        } else {
+            Log.e(TAG, "increment: out of bounds");
+            return false;
+        }
+    }
+
+    public boolean decrement(){
+        if (quantity > 0 && quantity <= 24) {
+            quantity--;
+            return true;
+        } else {
+            Log.e(TAG, "increment: out of bounds");
+            return false;
+        }
+    }
+
+    public int updatePrice(){
+        return getQuantity();
+    }
 }
