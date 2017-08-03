@@ -1,4 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--Copyright (C) 2017 Artur de Araujo
+
+    Licensed under no license yet.
+
+    02/08/2017
+    artur.at4@gmail.com
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dev.artur.joaodatripa">
 
@@ -9,7 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden">
+            <!--android:windowSoftInputMode="stateHidden"-->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
