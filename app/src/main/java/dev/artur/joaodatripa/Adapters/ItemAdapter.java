@@ -42,7 +42,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.list_item, parent, false);
+                    R.layout.list_item_item, parent, false);
         }
 
         // Get the {@link Item} object located at this position in the list
@@ -59,23 +59,23 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 
 
 
-        // Find the TextView in the list_item.xml layout with the ID name_item_text_view.
+        // Find the TextView in the list_item_item.xmlm.xml layout with the ID name_item_text_view.
         TextView nameItem = (TextView) listItemView.findViewById(R.id.name_item_text_view);
         nameItem.setText(currentItem.getName());
 
-        // Find the TextView in the list_item.xml layout with the ID unit_price_text_view.
+        // Find the TextView in the list_item_item.xmlm.xml layout with the ID unit_price_text_view.
         TextView unitPriceItem = (TextView) listItemView.findViewById(R.id.unit_price_text_view);
-        unitPriceItem.setText(String.valueOf(currentItem.getDoubleUnitPrice()));
+        unitPriceItem.setText(String.valueOf(currentItem.getUnitPrice()));
 
-        // Find the TextView in the list_item.xml layout with the ID total_price_text_view.
+        // Find the TextView in the list_item_item.xmlm.xml layout with the ID total_price_text_view.
         TextView quantityTextView = (TextView) listItemView.findViewById(R.id.quantity_text_view);
         quantityTextView.setText(String.valueOf(currentItem.updatePrice()));
 
-        // Find the TextView in the list_item.xml layout with the ID total_price_text_view.
+        // Find the TextView in the list_item_item_item.xml layout with the ID total_price_text_view.
         TextView totalPriceItem = (TextView) listItemView.findViewById(R.id.total_price_text_view);
         totalPriceItem.setText(String.valueOf(currentItem.getTotalPrice()));
 
-        // Find the ImageView in the list_item.xml layout with the ID image.
+        // Find the ImageView in the list_item_item.xmlm.xml layout with the ID image.
         ImageView imageView = (ImageView) listItemView.findViewById(R.id.image);
         // Check if an image is provided for this word or not
         if (currentItem.hasImage()) {

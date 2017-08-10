@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="@color/category_4"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/table_number"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_margin="6dp"
+        android:background="@color/category_1"
+        android:gravity="center"
+        android:textColor="@color/tan_background"
+        android:textSize="20sp"
+        tools:text="Mesa 8" />
+
+    <TextView
+        android:id="@+id/main_client_name"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/table_number"
+        android:layout_margin="6dp"
+        android:background="@color/category_1"
+        android:gravity="center"
+        android:textColor="#FFDFDD"
+        tools:text="Cliente Fulano" />
+
+    <TextView
+        android:id="@+id/total_order_text_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/main_client_name"
+        android:layout_margin="6dp"
+        android:background="@color/category_1"
+        android:gravity="center"
+        android:textColor="#FFDFDD"
+        tools:text="R$ 32,50" />
+</RelativeLayout>

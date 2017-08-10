@@ -1,5 +1,6 @@
 package dev.artur.joaodatripa;
 
+import android.content.Context;
 import android.util.Log;
 
 /**
@@ -9,18 +10,25 @@ import android.util.Log;
 public class Item {
 
     static String TAG = "Item class";
+     private Context context;
 
-    /**The name of the product*/
+    /**
+     * The name of the product
+     */
     private int mName;
 
-    /**The price of the product*/
-    private int mUnitPrice;
+    /**
+     * The unit price of the item.
+     */
+    private double mUnitPrice;
 
-    /**the quantity picked in the order*/
+    /**
+     * The quantity picked in the order
+     */
     private int quantity = 0;
 
     /**the total price of the desired number of this item*/
-    private double mTotalPrice;
+    private double mTotalPrice = mUnitPrice * quantity;
 
     /** Image resource ID for the item */
     private int mImageResourceId = NO_IMAGE_PROVIDED;
@@ -28,41 +36,35 @@ public class Item {
     /** Constant value that represents no image was provided for this item */
     private static final int NO_IMAGE_PROVIDED = -1;
 
-    private double mUnitPrice2;
-
+    /**
+     * Basic Item constructor without image resource provided.
+     *
+     * @param nameResourceId is the string resource ID for the item name.
+     * @param unitPriceResourceId is the price of the item.
+     */
+    public Item(Context context, int nameResourceId, int unitPriceResourceId, int imageResourceId) {
+        this.mName = nameResourceId;
+        this.mUnitPrice = Double.parseDouble(context.getString(unitPriceResourceId));
+        this.mImageResourceId = imageResourceId;
+    }
 
     /**
      * Create a new Item object.
      *
-     * @param name is the string resource ID for the word in a language that the
+     * @param nameResourceId is the string resource ID for the word in a language that the
      *                             user is already familiar with (such as English)
-     * @param price is the string resource Id for the price of the item
      */
-    public Item(int name, int price, int imageResourceId){
-        mName = name;
-        mUnitPrice = price;
-        mTotalPrice = quantity * mUnitPrice;
-        mImageResourceId = imageResourceId;
-    }
-
-    public Item(int name, int price, int imageResourceId, double unitPrice){
-        mName = name;
-        mUnitPrice = price;
-        mTotalPrice = getTotalPrice();
-        mImageResourceId = imageResourceId;
-        mUnitPrice2 = unitPrice;
+    public Item(Context context, int nameResourceId, int unitPriceResourceId){
+        this.mName = nameResourceId;
+        this.mUnitPrice = Double.parseDouble(context.getString(unitPriceResourceId));
     }
 
     public int getName() {
         return mName;
     }
 
-    public int getUnitPrice() {
+    public double getUnitPrice(){
         return mUnitPrice;
-    }
-
-    public double getDoubleUnitPrice(){
-        return mUnitPrice2;
     }
 
     public int getQuantity() {
@@ -73,17 +75,9 @@ public class Item {
         return mImageResourceId;
     }
 
-    public static int getNoImageProvided() {
-        return NO_IMAGE_PROVIDED;
-    }
-
     public double getTotalPrice() {
-        mTotalPrice = mUnitPrice2 * quantity;
+        mTotalPrice = mUnitPrice * quantity;
         return mTotalPrice;
-    }
-
-    public void setmUnitPrice(int mUnitPrice) {
-        this.mUnitPrice = mUnitPrice;
     }
 
     public void setQuantity(int quantity) {

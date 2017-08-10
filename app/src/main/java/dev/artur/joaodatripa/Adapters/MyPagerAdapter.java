@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import dev.artur.joaodatripa.OrderMenuFragment;
+import dev.artur.joaodatripa.TableFragment;
 
 /**
  * MyPagerAdapter class for operates with TabLayout
@@ -30,7 +31,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new OrderMenuFragment();
+            return new TableFragment();
         } else if (position == 1) {
             return new OrderMenuFragment();
         } else {
