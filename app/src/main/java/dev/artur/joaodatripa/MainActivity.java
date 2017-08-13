@@ -10,19 +10,20 @@ package dev.artur.joaodatripa;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import dev.artur.joaodatripa.Adapters.MyPagerAdapter;
+import dev.artur.joaodatripa.adapters.MyPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Set the elevation of the ActionBar to show no shadow.
-        getSupportActionBar().setElevation(0);
 
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
@@ -48,8 +49,14 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
 //        getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.container, new OrderMenuFragment())
+//                .replace(R.id.container, new ItemsFragment())
 //                .commit();
     }
 
+    public void toggleSelection(View view) {
+        TextView itemView = (TextView) view;
+        int color = ContextCompat.getColor(this.getBaseContext(), R.color.colorPrimaryDark);
+        itemView.setHighlightColor(getResources().getColor(R.color.colorPrimaryDark));
+        Toast.makeText(this, "implementar esse clique", Toast.LENGTH_SHORT).show();
+    }
 }

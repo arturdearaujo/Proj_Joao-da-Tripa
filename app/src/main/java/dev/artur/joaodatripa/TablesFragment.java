@@ -10,16 +10,17 @@ import android.widget.GridView;
 
 import java.util.ArrayList;
 
-import dev.artur.joaodatripa.Adapters.TableAdapter;
+import dev.artur.joaodatripa.adapters.TableAdapter;
+import dev.artur.joaodatripa.elements.Table;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TableFragment extends Fragment {
+public class TablesFragment extends Fragment {
 
-    private static final String TAG = "TableFragment";
+    private static final String TAG = "TablesFragment";
 
-    public TableFragment() {
+    public TablesFragment() {
         // Required empty public constructor
     }
 

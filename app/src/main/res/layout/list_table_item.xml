@@ -3,20 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:background="@color/category_4"
+    android:layout_margin="8dp"
+    android:background="@color/tan_background2"
     android:gravity="center"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/table_number"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_margin="6dp"
-        android:background="@color/category_1"
-        android:gravity="center"
+        android:layout_marginBottom="6dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/layout_key_line_16_dp"
         android:textColor="@color/tan_background"
-        android:textSize="20sp"
+        android:textSize="18sp"
         tools:text="Mesa 8" />
 
     <TextView
@@ -25,10 +26,10 @@
         android:layout_height="30dp"
         android:layout_below="@+id/table_number"
         android:layout_margin="6dp"
-        android:background="@color/category_1"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         android:textColor="#FFDFDD"
-        tools:text="Cliente Fulano" />
+        tools:text="Disponível" />
 
     <TextView
         android:id="@+id/total_order_text_view"
@@ -36,7 +37,7 @@
         android:layout_height="100dp"
         android:layout_below="@+id/main_client_name"
         android:layout_margin="6dp"
-        android:background="@color/category_1"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         android:textColor="#FFDFDD"
         tools:text="R$ 32,50" />

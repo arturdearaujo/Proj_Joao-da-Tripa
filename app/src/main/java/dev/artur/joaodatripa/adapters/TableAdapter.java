@@ -1,4 +1,4 @@
-package dev.artur.joaodatripa.Adapters;
+package dev.artur.joaodatripa.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import dev.artur.joaodatripa.R;
-import dev.artur.joaodatripa.Table;
+import dev.artur.joaodatripa.elements.Table;
 
 /**
  * Created by artur on 05/08/2017.
@@ -32,17 +32,15 @@ public class TableAdapter extends ArrayAdapter<Table> {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.list_table_item, parent, false);
         }
-
         // Get the {@link Item} object located at this position in the list
         final Table currentTable = getItem(position);
 
+
         TextView tableNumber = (TextView) listItemView.findViewById(R.id.table_number);
-        tableNumber.setText(String.valueOf(currentTable.getNumber()));
+        tableNumber.setText(String.valueOf("Mesa " + currentTable.getNumber()));
 
         TextView mainClient = (TextView) listItemView.findViewById(R.id.main_client_name);
 //        mainClient.setText(currentTable.getMainClientName());
-
-
 
         return listItemView;
     }

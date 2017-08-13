@@ -2,18 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="dev.artur.joaodatripa.TableFragment">
+    tools:context="dev.artur.joaodatripa.TablesFragment">
 
     <GridView
         android:id="@+id/list_of_tables"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:drawSelectorOnTop="true"
-        android:numColumns="2"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
-        android:stretchMode="columnWidth"
         android:layout_margin="10dp"
-        android:gravity="center"/>
+        android:drawSelectorOnTop="true"
+        android:gravity="center"
+        android:horizontalSpacing="@dimen/grid_spacing_16_dp"
+        android:numColumns="2"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/grid_spacing_16_dp" />
 
 </LinearLayout>

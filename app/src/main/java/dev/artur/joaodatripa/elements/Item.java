@@ -1,4 +1,4 @@
-package dev.artur.joaodatripa;
+package dev.artur.joaodatripa.elements;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,32 +9,28 @@ import android.util.Log;
 
 public class Item {
 
+    /**
+     * Constant value that represents no image was provided for this item
+     */
+    private static final int NO_IMAGE_PROVIDED = -1;
     static String TAG = "Item class";
      private Context context;
-
     /**
      * The name of the product
      */
     private int mName;
-
     /**
      * The unit price of the item.
      */
     private double mUnitPrice;
-
     /**
      * The quantity picked in the order
      */
     private int quantity = 0;
-
     /**the total price of the desired number of this item*/
     private double mTotalPrice = mUnitPrice * quantity;
-
     /** Image resource ID for the item */
     private int mImageResourceId = NO_IMAGE_PROVIDED;
-
-    /** Constant value that represents no image was provided for this item */
-    private static final int NO_IMAGE_PROVIDED = -1;
 
     /**
      * Basic Item constructor without image resource provided.
@@ -71,6 +67,10 @@ public class Item {
         return quantity;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public int getImageResourceId() {
         return mImageResourceId;
     }
@@ -78,10 +78,6 @@ public class Item {
     public double getTotalPrice() {
         mTotalPrice = mUnitPrice * quantity;
         return mTotalPrice;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     /**

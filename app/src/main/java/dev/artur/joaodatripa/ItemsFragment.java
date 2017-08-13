@@ -14,21 +14,22 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import dev.artur.joaodatripa.Adapters.ItemAdapter;
+import dev.artur.joaodatripa.adapters.ItemAdapter;
+import dev.artur.joaodatripa.elements.Item;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OrderMenuFragment extends Fragment {
+public class ItemsFragment extends Fragment {
 
-    private static final String TAG = "OrderMenuFragment";
+    private static final String TAG = "ItemsFragment";
 
     /**
      * The total price of items ordered by the user.
      */
     double totalOrder = 0;
 
-    public OrderMenuFragment() {
+    public ItemsFragment() {
         // Required empty public constructor
     }
 
@@ -116,7 +117,7 @@ public class OrderMenuFragment extends Fragment {
 
         // Create an {@link ItemAdapter}, whose data source is a list of {@link Item}s. The
         // adapter knows how to create list items for each item in the list.
-        ItemAdapter adapter = new ItemAdapter(getContext(), items, R.color.category_1);
+        ItemAdapter adapter = new ItemAdapter(getContext(), items, R.color.tan_background);
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the

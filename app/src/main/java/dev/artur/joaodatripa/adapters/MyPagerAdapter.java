@@ -1,12 +1,13 @@
-package dev.artur.joaodatripa.Adapters;
+package dev.artur.joaodatripa.adapters;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import dev.artur.joaodatripa.OrderMenuFragment;
-import dev.artur.joaodatripa.TableFragment;
+import dev.artur.joaodatripa.ItemsFragment;
+import dev.artur.joaodatripa.ProductsFragment;
+import dev.artur.joaodatripa.TablesFragment;
 
 /**
  * MyPagerAdapter class for operates with TabLayout
@@ -31,11 +32,11 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new TableFragment();
+            return new TablesFragment();
         } else if (position == 1) {
-            return new OrderMenuFragment();
+            return new ItemsFragment();
         } else {
-            return new OrderMenuFragment();
+            return new ProductsFragment();
         }
     }
 

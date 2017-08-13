@@ -14,31 +14,14 @@
      limitations under the License.
 -->
 <resources>
-    <color name="colorPrimary">#1c4dfd</color>
-    <color name="colorPrimaryDark">#14258e</color>
+    <color name="colorPrimary">#e22a4d</color>
+    <color name="colorPrimaryDark">#623039</color>
     <color name="colorAccent">#3d7840</color>
 
-    <!-- Primary color of the app (shown in the app bar) -->
-    <color name="primary_color">#4A312A</color>
-
-    <!-- Primary dark color of the app (shown in the status bar) -->
-    <color name="primary_dark_color">#2F1D1A</color>
+    <!-- Background color for app -->
+    <color name="tan_background">#ffffff</color>
 
     <!-- Background color for app -->
-    <color name="tan_background">#FFF7DA</color>
+    <color name="tan_background2">#bbbbbb</color>
 
-    <!-- Background color for app -->
-    <color name="tan_background2">#edda93</color>
-
-    <!-- Background color for the numbers category -->
-    <color name="category_1">#FD8E09</color>
-
-    <!-- Background color for the family members category -->
-    <color name="category_2">#379237</color>
-
-    <!-- Background color for the colors category -->
-    <color name="category_3">#8800A0</color>
-
-    <!-- Background color for the phrases category -->
-    <color name="category_4">#16AFCA</color>
 </resources>

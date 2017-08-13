@@ -1,4 +1,4 @@
-package dev.artur.joaodatripa;
+package dev.artur.joaodatripa.elements;
 
 import java.util.ArrayList;
 
