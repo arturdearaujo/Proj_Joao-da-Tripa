@@ -1,6 +1,6 @@
 package dev.artur.joaodatripa.elements;
 
-import java.util.ArrayList;
+import android.text.TextUtils;
 
 /**
  * Table class.
@@ -10,15 +10,26 @@ import java.util.ArrayList;
 public class Table {
 
     /**
+     * Constants
+     */
+    public final String AVAILABLE_TABLE = "Disponível";
+    public final String RESERVED_TABLE = "Reservado";
+    public final String OCCUPIED_TABLE = "Ocupado";
+
+    /**
      * The number of the table for sorting.
      */
     private int number;
 
-    private ArrayList<String> users;
+    /**
+     * The name of the main client responsible for that table.
+     */
+    private String mainClientName;
 
-    private ArrayList<Item> items;
-
-    private double totalPrice;
+    /**
+     * The label to puc in the grid item.
+     */
+    private String tableTittle;
 
     /**
      * Public constructor for a Table object.
@@ -27,26 +38,47 @@ public class Table {
      */
     public Table(int number) {
         this.number = number;
+        setTableTittle(AVAILABLE_TABLE);
     }
 
     public int getNumber() {
         return number;
     }
 
-    public ArrayList<String> getUsers() {
-        return users;
+    public String getTableTittle() {
+        return tableTittle;
     }
 
-    public ArrayList<Item> getItems() {
-        return items;
+    /**
+     * This methods sets up the status of the table displayed in the GridView.
+     *
+     * @param status used to select the status as one of the constants, os with the name
+     *               of the client, if previously provided.
+     */
+    public void setTableTittle(String status) {
+        switch (status) {
+            case RESERVED_TABLE:
+                tableTittle = RESERVED_TABLE;
+                break;
+            case OCCUPIED_TABLE:
+                if (hasNamedClient()) {
+                    tableTittle = mainClientName;
+                } else {
+                    tableTittle = OCCUPIED_TABLE;
+                }
+                break;
+            default:
+            case AVAILABLE_TABLE:
+                tableTittle = AVAILABLE_TABLE;
+                break;
+        }
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    private boolean hasNamedClient() {
+        return !TextUtils.isEmpty(mainClientName);
     }
 
-    public String getMainClientName(){
-        return users.get(0);
+    public void setMainClientName(String mainClientName) {
+        this.mainClientName = mainClientName;
     }
-
 }

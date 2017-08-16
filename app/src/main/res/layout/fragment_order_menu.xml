@@ -13,6 +13,7 @@
         android:layout_weight="1"
         android:dividerHeight="@dimen/layout_key_line_16_dp"
         android:drawSelectorOnTop="true"
+        android:nestedScrollingEnabled="true"
         android:orientation="vertical" />
 
     <RelativeLayout

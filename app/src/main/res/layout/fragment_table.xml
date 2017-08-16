@@ -8,10 +8,10 @@
         android:id="@+id/list_of_tables"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
         android:drawSelectorOnTop="true"
         android:gravity="center"
         android:horizontalSpacing="@dimen/grid_spacing_16_dp"
+        android:nestedScrollingEnabled="true"
         android:numColumns="2"
         android:stretchMode="columnWidth"
         android:verticalSpacing="@dimen/grid_spacing_16_dp" />

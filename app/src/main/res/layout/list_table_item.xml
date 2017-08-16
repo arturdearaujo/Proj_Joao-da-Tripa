@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:background="@color/tan_background2"
+    android:clickable="true"
+    android:foreground="?selectableItemBackground"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -28,7 +30,7 @@
         android:layout_margin="6dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:textColor="#FFDFDD"
+        android:textColor="@color/tan_background"
         tools:text="Disponível" />
 
     <TextView
@@ -39,6 +41,6 @@
         android:layout_margin="6dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:textColor="#FFDFDD"
+        android:textColor="@color/tan_background"
         tools:text="R$ 32,50" />
 </RelativeLayout>

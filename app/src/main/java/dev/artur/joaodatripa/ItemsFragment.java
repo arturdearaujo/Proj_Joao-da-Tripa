@@ -146,13 +146,13 @@ public class ItemsFragment extends Fragment {
                         incrementTotalOrder(token, item.getUnitPrice());
 
                         TextView totalOrderTextView = (TextView) rootView.findViewById(R.id.total_order_text_view);
-                        totalOrderTextView.setText(String.valueOf(totalOrder));
+                        totalOrderTextView.setText(String.valueOf("R$ " + totalOrder));
 
                         TextView quantityTextView = (TextView) finalView.findViewById(R.id.quantity_text_view);
-                        quantityTextView.setText(String.valueOf(item.updatePrice()));
+                        quantityTextView.setText(String.valueOf("x" + item.updatePrice()));
 
                         TextView totalPriceItem = (TextView) finalView.findViewById(R.id.total_price_text_view);
-                        totalPriceItem.setText(String.valueOf(item.getTotalPrice()));
+                        totalPriceItem.setText(String.valueOf("R$ " + item.getTotalPrice()));
                     }
                 });
 
@@ -164,13 +164,13 @@ public class ItemsFragment extends Fragment {
                         decrementTotalOrder(token, item.getUnitPrice());
 
                         TextView totalOrderTextView = (TextView) rootView.findViewById(R.id.total_order_text_view);
-                        totalOrderTextView.setText(String.valueOf(totalOrder));
+                        totalOrderTextView.setText(String.valueOf("R$ " + totalOrder));
 
                         TextView quantityTextView = (TextView) finalView.findViewById(R.id.quantity_text_view);
-                        quantityTextView.setText(String.valueOf(item.updatePrice()));
+                        quantityTextView.setText(String.valueOf("x" + item.updatePrice()));
 
                         TextView totalPriceItem = (TextView) finalView.findViewById(R.id.total_price_text_view);
-                        totalPriceItem.setText(String.valueOf(item.getTotalPrice()));
+                        totalPriceItem.setText(String.valueOf("R$ " + item.getTotalPrice()));
                     }
                 });
             }
@@ -178,7 +178,7 @@ public class ItemsFragment extends Fragment {
 
         //Initializing and setting the total order price.
         TextView totalOrderTextView = (TextView) rootView.findViewById(R.id.total_order_text_view);
-        totalOrderTextView.setText(String.valueOf(totalOrder));
+        totalOrderTextView.setText(String.valueOf("R$ " + totalOrder));
 
         Button orderButton = (Button) rootView.findViewById(R.id.order_button);
         orderButton.setOnClickListener(new View.OnClickListener() {

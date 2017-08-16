@@ -16,6 +16,8 @@ import dev.artur.joaodatripa.elements.Table;
 
 /**
  * Created by artur on 05/08/2017.
+ *
+ *      artur.at4@gmail.com
  */
 
 public class TableAdapter extends ArrayAdapter<Table> {
@@ -39,8 +41,8 @@ public class TableAdapter extends ArrayAdapter<Table> {
         TextView tableNumber = (TextView) listItemView.findViewById(R.id.table_number);
         tableNumber.setText(String.valueOf("Mesa " + currentTable.getNumber()));
 
-        TextView mainClient = (TextView) listItemView.findViewById(R.id.main_client_name);
-//        mainClient.setText(currentTable.getMainClientName());
+        TextView tableTittle = (TextView) listItemView.findViewById(R.id.main_client_name);
+        tableTittle.setText(currentTable.getTableTittle());
 
         return listItemView;
     }

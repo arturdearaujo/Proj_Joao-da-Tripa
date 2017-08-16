@@ -7,8 +7,7 @@
     android:layout_height="@dimen/list_item_height"
     android:background="@color/tan_background2"
     android:descendantFocusability="blocksDescendants"
-    android:minHeight="@dimen/list_item_height"
-    android:onClick="toggleSelection">
+    android:minHeight="@dimen/list_item_height">
 
     <ImageView
         android:id="@+id/image"
@@ -73,6 +72,7 @@
                 android:layout_gravity="center"
                 android:background="@color/tan_background"
                 android:gravity="center"
+                android:textDirection="ltr"
                 android:textStyle="bold"
                 tools:text="x2" />
 
@@ -80,8 +80,9 @@
                 android:id="@+id/total_price_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/layout_key_line_16_dp"
                 android:layout_weight="1"
+                android:digits="2"
                 android:elegantTextHeight="true"
                 android:gravity="center_vertical"
                 android:textColor="@color/tan_background"
