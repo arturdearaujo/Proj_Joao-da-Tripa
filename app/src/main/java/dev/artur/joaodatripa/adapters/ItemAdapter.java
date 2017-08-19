@@ -1,6 +1,7 @@
 package dev.artur.joaodatripa.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import dev.artur.joaodatripa.R;
@@ -46,32 +48,28 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         // Get the {@link Item} object located at this position in the list
         final Item currentItem = getItem(position);
 
-
-//        // Set the theme color for the list item
-//        View textContainer = listItemView.findViewById(R.id.item_layout);
-//        // Find the color that the resource ID maps to
-//        int color = ContextCompat.getColor(getContext(), mColorResourceId);
-//        // Set the background color of the text container View
-//        textContainer.setBackgroundColor(color);
+        //Use this method to set the correct color of the item.
+        checkColor(currentItem, listItemView);
 
 
-        // Find the TextView in the list_item_item.xmlm.xml layout with the ID name_item_text_view.
+        // Find the TextView in the list_item_item.xml layout with the ID name_item_text_view.
         TextView nameItem = (TextView) listItemView.findViewById(R.id.name_item_text_view);
         nameItem.setText(currentItem.getName());
 
-        // Find the TextView in the list_item_item.xmlm.xml layout with the ID unit_price_text_view.
+        // Find the TextView in the list_item_item.xml layout with the ID unit_price_text_view.
         TextView unitPriceItem = (TextView) listItemView.findViewById(R.id.unit_price_text_view);
-        unitPriceItem.setText(String.valueOf("R$ " + currentItem.getUnitPrice()));
+        unitPriceItem.setText(moneyFormat(currentItem.getUnitPrice()));
 
-        // Find the TextView in the list_item_item.xmlm.xml layout with the ID total_price_text_view.
+        // Find the TextView in the list_item_item.xml layout with the ID total_price_text_view.
         TextView quantityTextView = (TextView) listItemView.findViewById(R.id.quantity_text_view);
-        quantityTextView.setText(String.valueOf("x" + currentItem.updatePrice()));
+        quantityTextView.setText(String.valueOf("x" + currentItem.getQuantity()));
 
+        double totalPrice = currentItem.getUnitPrice() * currentItem.getQuantity();
         // Find the TextView in the list_item_item_item.xml layout with the ID total_price_text_view.
         TextView totalPriceItem = (TextView) listItemView.findViewById(R.id.total_price_text_view);
-        totalPriceItem.setText(String.valueOf("R$ " + currentItem.getTotalPrice()));
+        totalPriceItem.setText(moneyFormat(totalPrice));
 
-        // Find the ImageView in the list_item_item.xmlm.xml layout with the ID image.
+        // Find the ImageView in the list_item_item.xml layout with the ID image.
         ImageView imageView = (ImageView) listItemView.findViewById(R.id.image);
         // Check if an image is provided for this word or not
         if (currentItem.hasImage()) {
@@ -86,5 +84,27 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 
         // Return the whole list item layout so that it can be shown in the ListView.
         return listItemView;
+    }
+
+    private boolean checkColor(Item currentItem, View listItemView) {
+        // Set the theme color for the list item
+        View textContainer = listItemView.findViewById(R.id.item_layout);
+        // Find the color that the resource ID maps to
+        int colorDefault = ContextCompat.getColor(getContext(), R.color.tan_background2);
+        int colorAccent = ContextCompat.getColor(getContext(), R.color.colorAccent);
+
+        // Set the background color of the text container View
+        if (currentItem.getQuantity() != 0) {
+            textContainer.setBackgroundColor(colorAccent);
+            return true;
+        } else {
+            textContainer.setBackgroundColor(colorDefault);
+            return false;
+        }
+    }
+
+    private String moneyFormat(double value) {
+        DecimalFormat formatter = new DecimalFormat("0.00");
+        return "R$ " + formatter.format(value);
     }
 }

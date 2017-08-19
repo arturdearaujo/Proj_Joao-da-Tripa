@@ -43,8 +43,7 @@
         <TextView
             android:id="@+id/name_item_text_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="49dp"
             android:gravity="bottom|fill"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@color/tan_background"
@@ -54,22 +53,22 @@
         <LinearLayout
             android:id="@+id/values_container"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="49dp">
 
             <TextView
                 android:id="@+id/unit_price_text_view"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:gravity="start|center_vertical"
                 android:textColor="@color/tan_background"
                 tools:text="R$ 10,99" />
             <TextView
                 android:id="@+id/quantity_text_view"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="0.5"
                 android:background="@color/tan_background"
                 android:gravity="center"
                 android:textDirection="ltr"
@@ -78,13 +77,12 @@
 
             <TextView
                 android:id="@+id/total_price_text_view"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/layout_key_line_16_dp"
                 android:layout_weight="1"
-                android:digits="2"
                 android:elegantTextHeight="true"
-                android:gravity="center_vertical"
+                android:gravity="end|center_vertical"
                 android:textColor="@color/tan_background"
                 tools:text="R$ 21,98" />
         </LinearLayout>

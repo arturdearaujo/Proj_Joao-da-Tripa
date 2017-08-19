@@ -1,6 +1,8 @@
-package dev.artur.joaodatripa;
+package dev.artur.joaodatripa.activities;
 
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,8 +14,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import dev.artur.joaodatripa.ItemBoard;
+import dev.artur.joaodatripa.R;
 import dev.artur.joaodatripa.adapters.ItemAdapter;
 import dev.artur.joaodatripa.elements.Item;
 
@@ -29,6 +34,8 @@ public class ItemsFragment extends Fragment {
      */
     double totalOrder = 0;
 
+    ItemBoard myNoteBoard;
+
     public ItemsFragment() {
         // Required empty public constructor
     }
@@ -39,6 +46,8 @@ public class ItemsFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_order_menu, container, false);
 
+        // Creates the board to annotate the orders.
+        myNoteBoard = new ItemBoard();
 
         // Create a list of words
         final ArrayList<Item> items = new ArrayList<>();
@@ -131,12 +140,17 @@ public class ItemsFragment extends Fragment {
         // Set a click listener to do the staff.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            public void onItemClick(AdapterView<?> adapterView, final View view, int position, long l) {
                 // Get the {@link Word} object at the given position the user clicked on
                 final Item item = items.get(position);
                 final View finalView = view;
                 Button plusButton = (Button) view.findViewById(R.id.button_plus);
                 Button minusButton = (Button) view.findViewById(R.id.button_minus);
+
+//                myNoteBoard.takeNote(item.getName());
+
+                // This methods switch the color of the itemView based on the quantity of the item.
+                toggleColor(view, item);
 
                 plusButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -146,13 +160,16 @@ public class ItemsFragment extends Fragment {
                         incrementTotalOrder(token, item.getUnitPrice());
 
                         TextView totalOrderTextView = (TextView) rootView.findViewById(R.id.total_order_text_view);
-                        totalOrderTextView.setText(String.valueOf("R$ " + totalOrder));
+                        totalOrderTextView.setText(moneyFormat(totalOrder));
 
                         TextView quantityTextView = (TextView) finalView.findViewById(R.id.quantity_text_view);
-                        quantityTextView.setText(String.valueOf("x" + item.updatePrice()));
+                        quantityTextView.setText(String.valueOf("x" + item.getQuantity()));
 
+                        double totalPrice = item.getUnitPrice() * item.getQuantity();
                         TextView totalPriceItem = (TextView) finalView.findViewById(R.id.total_price_text_view);
-                        totalPriceItem.setText(String.valueOf("R$ " + item.getTotalPrice()));
+                        totalPriceItem.setText(moneyFormat(totalPrice));
+
+                        toggleColor(view, item);
                     }
                 });
 
@@ -164,31 +181,68 @@ public class ItemsFragment extends Fragment {
                         decrementTotalOrder(token, item.getUnitPrice());
 
                         TextView totalOrderTextView = (TextView) rootView.findViewById(R.id.total_order_text_view);
-                        totalOrderTextView.setText(String.valueOf("R$ " + totalOrder));
+                        totalOrderTextView.setText(moneyFormat(totalOrder));
 
                         TextView quantityTextView = (TextView) finalView.findViewById(R.id.quantity_text_view);
-                        quantityTextView.setText(String.valueOf("x" + item.updatePrice()));
+                        quantityTextView.setText(String.valueOf("x" + item.getQuantity()));
 
+                        double totalPrice = item.getUnitPrice() * item.getQuantity();
                         TextView totalPriceItem = (TextView) finalView.findViewById(R.id.total_price_text_view);
-                        totalPriceItem.setText(String.valueOf("R$ " + item.getTotalPrice()));
+                        totalPriceItem.setText(moneyFormat(totalPrice));
+
+                        toggleColor(view, item);
                     }
                 });
             }
+
+            private void toggleColor(View view, Item item) {
+                if (item.getQuantity() != 0) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        view.setBackgroundColor(getResources().getColor(R.color.colorAccent, getActivity().getTheme()));
+                    } else {
+                        view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    }
+                } else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        view.setBackgroundColor(getResources().getColor(R.color.tan_background2, getActivity().getTheme()));
+                    } else {
+                        view.setBackgroundColor(getResources().getColor(R.color.tan_background2));
+                    }
+                }
+            }
+
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final Item item = items.get(position);
+                Intent itemSummaryActivity = new Intent(parent.getContext(), dev.artur.joaodatripa.activities.itemSummaryActivity.class);
+                itemSummaryActivity.putExtra("itemActivity", item);
+                startActivity(itemSummaryActivity);
+                return false;
+            }
+
         });
 
         //Initializing and setting the total order price.
         TextView totalOrderTextView = (TextView) rootView.findViewById(R.id.total_order_text_view);
-        totalOrderTextView.setText(String.valueOf("R$ " + totalOrder));
+        totalOrderTextView.setText(moneyFormat(totalOrder));
 
         Button orderButton = (Button) rootView.findViewById(R.id.order_button);
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "test", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "criar tela para confirmar pedido ou snack bar?", Toast.LENGTH_LONG).show();
             }
         });
 
         return rootView;
+    }
+
+    public String moneyFormat(double value) {
+        DecimalFormat formatter = new DecimalFormat("0.00");
+        return "R$ " + formatter.format(value);
     }
 
     private void decrementTotalOrder(boolean token, double value) {

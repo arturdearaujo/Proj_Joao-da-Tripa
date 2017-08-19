@@ -1,4 +1,4 @@
-package dev.artur.joaodatripa;
+package dev.artur.joaodatripa.activities;
 
 
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.GridView;
 
 import java.util.ArrayList;
 
+import dev.artur.joaodatripa.R;
 import dev.artur.joaodatripa.adapters.TableAdapter;
 import dev.artur.joaodatripa.elements.Table;
 

@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--Copyright (C) 2017 Artur de Araujo
+<?xml version="1.0" encoding="utf-8"?><!--
+Copyright (C) 2017 Artur de Araujo
 
     Licensed under no license yet.
 
@@ -16,15 +17,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:configChanges="orientation|keyboardHidden">
-            <!--android:windowSoftInputMode="stateHidden"-->
-
+            <!-- android:windowSoftInputMode="stateHidden" -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.itemSummaryActivity"
+            android:parentActivityName=".activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
         </activity>
     </application>
 

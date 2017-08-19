@@ -34,7 +34,7 @@
         tools:text="Disponível" />
 
     <TextView
-        android:id="@+id/total_order_text_view"
+        android:id="@+id/total_order_in_table_text_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_below="@+id/main_client_name"

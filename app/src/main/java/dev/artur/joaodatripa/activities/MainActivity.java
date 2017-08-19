@@ -6,7 +6,7 @@
  * Author: Artur de Araujo
  * in: 02/08/2017
  */
-package dev.artur.joaodatripa;
+package dev.artur.joaodatripa.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import dev.artur.joaodatripa.R;
 import dev.artur.joaodatripa.adapters.MyPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
