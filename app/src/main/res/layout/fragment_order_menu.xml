@@ -19,20 +19,28 @@
     <RelativeLayout
         android:id="@+id/resume_bar_relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
         android:padding="8dp">
 
         <TextView
+            android:id="@+id/order_summary_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/total_order_text_view"
+            tools:text="resumo dos intems: " />
+
+        <TextView
             android:id="@+id/total_order_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
             android:paddingEnd="@dimen/layout_key_line_16_dp"
             android:paddingStart="@dimen/layout_key_line_16_dp"
-            android:text="R$ 00,00"
+            android:text="@string/initial_zero_value"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textColor="@color/tan_background" />
 

@@ -1,4 +1,4 @@
-package dev.artur.joaodatripa.activities;
+package dev.artur.joaodatripa.fragments;
 
 
 import android.content.Intent;
@@ -12,13 +12,13 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import dev.artur.joaodatripa.ItemBoard;
 import dev.artur.joaodatripa.R;
+import dev.artur.joaodatripa.activities.OrderSummaryActivity;
 import dev.artur.joaodatripa.adapters.ItemAdapter;
 import dev.artur.joaodatripa.elements.Item;
 
@@ -47,7 +47,7 @@ public class ItemsFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_order_menu, container, false);
 
         // Creates the board to annotate the orders.
-        myNoteBoard = new ItemBoard();
+        myNoteBoard = new ItemBoard(new ArrayList<String>());
 
         // Create a list of words
         final ArrayList<Item> items = new ArrayList<>();
@@ -143,7 +143,6 @@ public class ItemsFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, final View view, int position, long l) {
                 // Get the {@link Word} object at the given position the user clicked on
                 final Item item = items.get(position);
-                final View finalView = view;
                 Button plusButton = (Button) view.findViewById(R.id.button_plus);
                 Button minusButton = (Button) view.findViewById(R.id.button_minus);
 
@@ -162,14 +161,19 @@ public class ItemsFragment extends Fragment {
                         TextView totalOrderTextView = (TextView) rootView.findViewById(R.id.total_order_text_view);
                         totalOrderTextView.setText(moneyFormat(totalOrder));
 
-                        TextView quantityTextView = (TextView) finalView.findViewById(R.id.quantity_text_view);
+                        TextView quantityTextView = (TextView) view.findViewById(R.id.quantity_text_view);
                         quantityTextView.setText(String.valueOf("x" + item.getQuantity()));
 
                         double totalPrice = item.getUnitPrice() * item.getQuantity();
-                        TextView totalPriceItem = (TextView) finalView.findViewById(R.id.total_price_text_view);
+                        TextView totalPriceItem = (TextView) view.findViewById(R.id.total_price_text_view);
                         totalPriceItem.setText(moneyFormat(totalPrice));
 
                         toggleColor(view, item);
+
+                        //Inserir aqui uma função que descreve a ação realizada(no caso, adiciona um pedido, em texto)
+                        String note = myNoteBoard.takeNote(item.getName(), item.getQuantity(), item.getUnitPrice(), totalOrder, token);
+                        TextView summaryTextView = (TextView) getActivity().findViewById(R.id.order_summary_text_view);
+                        summaryTextView.setText(note);
                     }
                 });
 
@@ -183,14 +187,19 @@ public class ItemsFragment extends Fragment {
                         TextView totalOrderTextView = (TextView) rootView.findViewById(R.id.total_order_text_view);
                         totalOrderTextView.setText(moneyFormat(totalOrder));
 
-                        TextView quantityTextView = (TextView) finalView.findViewById(R.id.quantity_text_view);
+                        TextView quantityTextView = (TextView) view.findViewById(R.id.quantity_text_view);
                         quantityTextView.setText(String.valueOf("x" + item.getQuantity()));
 
                         double totalPrice = item.getUnitPrice() * item.getQuantity();
-                        TextView totalPriceItem = (TextView) finalView.findViewById(R.id.total_price_text_view);
+                        TextView totalPriceItem = (TextView) view.findViewById(R.id.total_price_text_view);
                         totalPriceItem.setText(moneyFormat(totalPrice));
 
                         toggleColor(view, item);
+
+                        //Inserir aqui uma função que descreve a ação realizada(no caso, adiciona um pedido, em texto)
+                        String note = myNoteBoard.takeNote(item.getName(), item.getQuantity(), item.getUnitPrice(), totalOrder, token);
+                        TextView summaryTextView = (TextView) getActivity().findViewById(R.id.order_summary_text_view);
+                        summaryTextView.setText(note);
                     }
                 });
             }
@@ -233,7 +242,11 @@ public class ItemsFragment extends Fragment {
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "criar tela para confirmar pedido ou snack bar?", Toast.LENGTH_LONG).show();
+                String orderSummary = "";
+
+                Intent orderSummaryActivity = new Intent(getContext(), OrderSummaryActivity.class);
+                orderSummaryActivity.putExtra("orderSummary", myNoteBoard.makeText());
+                startActivity(orderSummaryActivity);
             }
         });
 

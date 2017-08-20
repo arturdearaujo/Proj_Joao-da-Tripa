@@ -5,9 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import dev.artur.joaodatripa.activities.ItemsFragment;
-import dev.artur.joaodatripa.activities.ProductsFragment;
-import dev.artur.joaodatripa.activities.TablesFragment;
+import dev.artur.joaodatripa.fragments.ItemsFragment;
+import dev.artur.joaodatripa.fragments.ProductsFragment;
+import dev.artur.joaodatripa.fragments.TablesFragment;
 
 /**
  * MyPagerAdapter class for operates with TabLayout

@@ -1,4 +1,4 @@
-package dev.artur.joaodatripa.activities;
+package dev.artur.joaodatripa.fragments;
 
 
 import android.os.Bundle;

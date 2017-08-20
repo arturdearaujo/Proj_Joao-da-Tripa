@@ -19,9 +19,11 @@ Copyright (C) 2017 Artur de Araujo
         <activity
             android:name=".activities.MainActivity"
             android:configChanges="orientation|keyboardHidden">
+
             <!-- android:windowSoftInputMode="stateHidden" -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,6 +34,7 @@ Copyright (C) 2017 Artur de Araujo
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
+        <activity android:name=".activities.OrderSummaryActivity"></activity>
     </application>
 
 </manifest>

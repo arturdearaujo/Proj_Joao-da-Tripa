@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="dev.artur.joaodatripa.activities.TablesFragment">
+    tools:context="dev.artur.joaodatripa.fragments.TablesFragment">
 
     <GridView
         android:id="@+id/list_of_tables"
