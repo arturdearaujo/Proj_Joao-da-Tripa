@@ -28,13 +28,13 @@ Copyright (C) 2017 Artur de Araujo
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.itemSummaryActivity"
+            android:name=".activities.ItemSummaryActivity"
             android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
-        <activity android:name=".activities.OrderSummaryActivity"></activity>
+        <activity android:name=".activities.TableActivity"></activity>
     </application>
 
 </manifest>

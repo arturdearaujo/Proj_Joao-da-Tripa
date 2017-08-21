@@ -27,7 +27,8 @@ public class ItemBoard {
 
         if (token) {
             double itemTotalPrice = newQuantity * unitPrice;
-            String noteLine = "\n" + String.valueOf(newQuantity) + "*\t" + (name.length() < 10 ? name : name.substring(0, 10)) + "\t\tR$" + String.valueOf(unitPrice) + "\t\tR$" + String.valueOf(itemTotalPrice);
+            int NAME_MIN_LENGTH = 15;
+            String noteLine = "\n" + String.valueOf(newQuantity) + "*\t" + (name.length() < NAME_MIN_LENGTH ? name : name.substring(0, NAME_MIN_LENGTH)) + "\t\tR$" + String.valueOf(unitPrice) + "\t\tR$" + String.valueOf(itemTotalPrice);
 
             //Se já tem o nome do item na lista, ele ja foi selecionado antes. Como não contém, adiciona:
             if (!orderSummaryName.contains(name)) {

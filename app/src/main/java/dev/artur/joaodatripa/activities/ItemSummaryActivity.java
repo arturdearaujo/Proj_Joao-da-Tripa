@@ -12,7 +12,7 @@ import java.text.DecimalFormat;
 import dev.artur.joaodatripa.R;
 import dev.artur.joaodatripa.elements.Item;
 
-public class itemSummaryActivity extends AppCompatActivity {
+public class ItemSummaryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

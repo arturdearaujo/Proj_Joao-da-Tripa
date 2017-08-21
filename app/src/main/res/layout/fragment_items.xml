@@ -19,7 +19,7 @@
     <RelativeLayout
         android:id="@+id/resume_bar_relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
         android:padding="8dp">
@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/total_order_text_view"
+            android:scrollbars="vertical"
             tools:text="resumo dos intems: " />
 
         <TextView
@@ -48,7 +49,8 @@
             android:id="@+id/order_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:text="Pedir" />
+            android:text="Submeter" />
     </RelativeLayout>
 </LinearLayout>

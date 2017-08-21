@@ -3,10 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
     android:background="@color/tan_background2"
-    android:clickable="true"
-    android:foreground="?selectableItemBackground"
+    android:descendantFocusability="blocksDescendants"
     android:gravity="center"
     android:orientation="vertical">
 

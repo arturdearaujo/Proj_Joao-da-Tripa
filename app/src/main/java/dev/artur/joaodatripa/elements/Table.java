@@ -2,19 +2,22 @@ package dev.artur.joaodatripa.elements;
 
 import android.text.TextUtils;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  * Table class.
  * Created by artur on 05/08/2017.
  */
 
-public class Table {
+public class Table implements Serializable {
 
     /**
      * Constants
      */
-    public final String AVAILABLE_TABLE = "Disponível";
-    public final String RESERVED_TABLE = "Reservado";
-    public final String OCCUPIED_TABLE = "Ocupado";
+    private final String AVAILABLE_TABLE = "Disponível";
+    private final String RESERVED_TABLE = "Reservado";
+    private final String OCCUPIED_TABLE = "Ocupado";
 
     /**
      * The number of the table for sorting.
@@ -30,6 +33,11 @@ public class Table {
      * The label to puc in the grid item.
      */
     private String tableTittle;
+
+    /**
+     * The ArrayList of Orders the table made.
+     */
+    private ArrayList<Order> orders;
 
     /**
      * Public constructor for a Table object.
@@ -80,5 +88,14 @@ public class Table {
 
     public void setMainClientName(String mainClientName) {
         this.mainClientName = mainClientName;
+    }
+
+    /***/
+    public void receiveOrder(Order orderTxt) {
+
+    }
+
+    public String makeOrder() {
+        return "";
     }
 }

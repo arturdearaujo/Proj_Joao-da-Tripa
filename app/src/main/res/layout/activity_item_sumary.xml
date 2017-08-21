@@ -9,7 +9,7 @@
     android:elevation="@dimen/cardview_default_elevation"
     android:orientation="vertical"
     app:cardCornerRadius="5dp"
-    tools:context="dev.artur.joaodatripa.activities.itemSummaryActivity">
+    tools:context="dev.artur.joaodatripa.activities.ItemSummaryActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
