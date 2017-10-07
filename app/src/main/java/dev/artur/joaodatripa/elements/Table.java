@@ -1,7 +1,5 @@
 package dev.artur.joaodatripa.elements;
 
-import android.text.TextUtils;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -12,31 +10,15 @@ import java.util.ArrayList;
 
 public class Table implements Serializable {
 
-    /**
-     * Constants
-     */
     private final String AVAILABLE_TABLE = "Disponível";
     private final String RESERVED_TABLE = "Reservado";
     private final String OCCUPIED_TABLE = "Ocupado";
 
-    /**
-     * The number of the table for sorting.
-     */
     private int number;
-
-    /**
-     * The name of the main client responsible for that table.
-     */
-    private String mainClientName;
-
-    /**
-     * The label to puc in the grid item.
-     */
     private String tableTittle;
+    private String tableSummary;
+    private double totalPrice;
 
-    /**
-     * The ArrayList of Orders the table made.
-     */
     private ArrayList<Order> orders;
 
     /**
@@ -46,7 +28,8 @@ public class Table implements Serializable {
      */
     public Table(int number) {
         this.number = number;
-        setTableTittle(AVAILABLE_TABLE);
+        tableTittle = "Mesa: " + String.valueOf(number);
+        tableSummary = "";
     }
 
     public int getNumber() {
@@ -57,45 +40,17 @@ public class Table implements Serializable {
         return tableTittle;
     }
 
-    /**
-     * This methods sets up the status of the table displayed in the GridView.
-     *
-     * @param status used to select the status as one of the constants, os with the name
-     *               of the client, if previously provided.
-     */
-    public void setTableTittle(String status) {
-        switch (status) {
-            case RESERVED_TABLE:
-                tableTittle = RESERVED_TABLE;
-                break;
-            case OCCUPIED_TABLE:
-                if (hasNamedClient()) {
-                    tableTittle = mainClientName;
-                } else {
-                    tableTittle = OCCUPIED_TABLE;
-                }
-                break;
-            default:
-            case AVAILABLE_TABLE:
-                tableTittle = AVAILABLE_TABLE;
-                break;
+    public String getTableSummary() {
+        return tableSummary;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void receiveOrder(Order order) {
+        if (order.getTableNumber() == getNumber()) {
+            this.tableSummary += order.getOrderNote();
         }
-    }
-
-    private boolean hasNamedClient() {
-        return !TextUtils.isEmpty(mainClientName);
-    }
-
-    public void setMainClientName(String mainClientName) {
-        this.mainClientName = mainClientName;
-    }
-
-    /***/
-    public void receiveOrder(Order orderTxt) {
-
-    }
-
-    public String makeOrder() {
-        return "";
     }
 }

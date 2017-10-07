@@ -21,4 +21,8 @@ public class Order implements Serializable {
     public int getTableNumber() {
         return tableNumber;
     }
+
+    public String getOrderNote() {
+        return orderNote;
+    }
 }

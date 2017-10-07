@@ -1,6 +1,7 @@
 package dev.artur.joaodatripa.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class ItemsFragment extends Fragment {
 
     private static final String TAG = "ItemsFragment";
 
+    OnOrderingListener mListener;
     /**
      * The total price of items ordered by the user.
      */
@@ -270,7 +272,6 @@ public class ItemsFragment extends Fragment {
                     mOrderSummary.setMovementMethod(new ScrollingMovementMethod());
 
                     final String[] tablesArray = {"Escolha uma mesa:",
-                            "Mesa 0",
                             "Mesa 1",
                             "Mesa 2",
                             "Mesa 3",
@@ -293,19 +294,21 @@ public class ItemsFragment extends Fragment {
 
                         @Override
                         public void onNothingSelected(AdapterView<?> parent) {
-                            Toast.makeText(getContext(), "ah-haaa onNothingSelected.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "ah-haaa onNothingSelected in tableSpinner.", Toast.LENGTH_SHORT).show();
                         }
                     });
 
 
-                    final String observationMsgs = obsEditText.getText().toString();
+                    final String observationNotes = obsEditText.getText().toString();
 
 
                     confirmOrder.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if (table[0] != -1) {
-                                Order newOrder = new Order(myNoteBoard.makeText(), table[0], observationMsgs);
+                                Order newOrder = new Order(myNoteBoard.makeText(), table[0], observationNotes);
+
+                                mListener.onOrdering(newOrder);
 
                                 // A questão em criar uma nova activity a partir daqui é que a mesa pode já existir.
                                 // Como alternativa, envia por intent contendo a newOrder, e o numero da mesa q deverá recebe-lo.*/
@@ -329,6 +332,16 @@ public class ItemsFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mListener = (OnOrderingListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString() + " must implement OnArticleSelectedListener");
+        }
+    }
+
     public String moneyFormat(double value) {
         DecimalFormat formatter = new DecimalFormat("0.00");
         return "R$ " + formatter.format(value);
@@ -346,4 +359,8 @@ public class ItemsFragment extends Fragment {
         }
     }
 
+
+    public interface OnOrderingListener {
+        void onOrdering(Order order);
+    }
 }

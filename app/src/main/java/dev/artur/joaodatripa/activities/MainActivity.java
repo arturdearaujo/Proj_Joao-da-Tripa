@@ -1,11 +1,3 @@
-/**
- * Copyright (C) 2017 VOTU RFID Solutions.
- * <p>
- * Licensed under no license, Version 1.0
- * <p>
- * Author: Artur de Araujo
- * in: 02/08/2017
- */
 package dev.artur.joaodatripa.activities;
 
 import android.os.Bundle;
@@ -16,15 +8,26 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import dev.artur.joaodatripa.R;
 import dev.artur.joaodatripa.adapters.MyPagerAdapter;
+import dev.artur.joaodatripa.elements.Order;
+import dev.artur.joaodatripa.elements.Table;
+import dev.artur.joaodatripa.fragments.ItemsFragment;
+import dev.artur.joaodatripa.fragments.ProductsFragment;
+import dev.artur.joaodatripa.fragments.TablesFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ItemsFragment.OnOrderingListener {
 
+    final ArrayList<Table> tableArrayList = new ArrayList<>();
     Toolbar toolbar;
     ViewPager viewPager;
     MyPagerAdapter adapter;
     TabLayout tabLayout;
+    ItemsFragment mItemsFragments;
+    ProductsFragment productsFragment;
+    TablesFragment mTablesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
         //   3. Set the tab layout's tab names with the view pager's adapter's titles
         //      by calling onPageTitle()
         tabLayout.setupWithViewPager(viewPager);
+
+        //Create the list of tables
+        for (int i = 0; i < 9; i++) {
+            tableArrayList.add(new Table(i + 1));
+        }
     }
 
     @Override
@@ -80,5 +88,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public ArrayList<Table> getTables() {
+        return tableArrayList;
+    }
+
+    @Override
+    public void onOrdering(Order order) {
+        // O pedido está aqui!
+        // Jogar na table correta
+        tableArrayList.get(order.getTableNumber() - 1).receiveOrder(order);
     }
 }

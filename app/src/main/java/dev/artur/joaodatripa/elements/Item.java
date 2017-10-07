@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class Item implements Serializable {
 
     private static final int NO_IMAGE_PROVIDED = -1;
-    static String TAG = "Item class";
+    private static String TAG = "Item class";
     private int mNameId;
     private int quantity = 0;
     private double mUnitPrice;

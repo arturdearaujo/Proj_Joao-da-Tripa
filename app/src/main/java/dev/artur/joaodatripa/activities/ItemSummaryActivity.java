@@ -12,6 +12,10 @@ import java.text.DecimalFormat;
 import dev.artur.joaodatripa.R;
 import dev.artur.joaodatripa.elements.Item;
 
+/**
+ * This Activity shows the resume description about the item, like how many and for how much it was
+ * last/best bought.(?) Artur, 05/10/2017.
+ */
 public class ItemSummaryActivity extends AppCompatActivity {
 
     @Override

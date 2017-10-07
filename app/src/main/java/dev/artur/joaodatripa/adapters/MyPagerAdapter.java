@@ -22,11 +22,17 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
      */
     final int PAGE_COUNT = 3;
     Context context;
+    private ItemsFragment mItemsFragments;
+    private ProductsFragment mProductsFragments;
+    private TablesFragment mTablesFragments;
     private String tabTitles[] = new String[]{"Mesas", "Cardápio", "Produtos"};
 
     public MyPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
+        mItemsFragments = new ItemsFragment();
+        mProductsFragments = new ProductsFragment();
+        mTablesFragments = new TablesFragment();
     }
 
     @Override

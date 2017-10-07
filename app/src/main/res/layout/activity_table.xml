@@ -1,8 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/layout_key_line_16_dp"
+    android:background="@color/cardview_dark_background"
+    android:elevation="@dimen/cardview_default_elevation"
+    android:orientation="vertical"
+    android:textAppearance="@color/cardview_dark_background"
+    app:cardCornerRadius="5dp"
     tools:context="dev.artur.joaodatripa.activities.TableActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/layout_key_line_16_dp">
+
+        <TextView
+            android:id="@+id/table_title"
+            style="@style/Base.TextAppearance.AppCompat.Display1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            tools:text="Título da mesa" />
+
+        <TextView
+            android:id="@+id/table_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            tools:text="resumo dos itens" />
+
+        <TextView
+            android:id="@+id/table_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/colorPrimary"
+            tools:text="R$ xxx,xx" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Pagar" />
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
