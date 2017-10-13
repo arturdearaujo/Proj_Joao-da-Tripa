@@ -1,15 +1,16 @@
 package dev.artur.joaodatripa.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,12 +20,16 @@ import dev.artur.joaodatripa.activities.TableActivity;
 import dev.artur.joaodatripa.adapters.TableAdapter;
 import dev.artur.joaodatripa.elements.Table;
 
+import static android.app.Activity.RESULT_FIRST_USER;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TablesFragment extends Fragment {
 
-    private static final String TAG = "TablesFragment";
+    private static final int REQUEST_1 = 1;
+
+    OnUpdateTableListener mListener;
 
     public TablesFragment() {
         // Required empty public constructor
@@ -51,14 +56,11 @@ public class TablesFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onItemClick: cliquei na mesa :/");
 
                 // Criar um intent para abrir a activity da table com todos os seus pedidos?
                 Intent tableIntent = new Intent(getContext(), TableActivity.class);
-
                 tableIntent.putExtra("table data", mTables.get(position));
-
-                startActivity(tableIntent);
+                startActivityForResult(tableIntent, REQUEST_1);
             }
         });
 
@@ -73,4 +75,32 @@ public class TablesFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_1) {
+            if (resultCode == RESULT_FIRST_USER) {
+                Table newTable = (Table) data.getSerializableExtra("tableUpdate");
+                // Talvez o jeito aqui seja enviar outro intent para atualizar os valores na MainActivity...
+                mListener.onUpdateTable(newTable);
+
+            }
+        }
+        Toast.makeText(getContext(), "teste", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mListener = (TablesFragment.OnUpdateTableListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString() + " must implement OnUpdateTableListener");
+        }
+    }
+
+    public interface OnUpdateTableListener {
+        void onUpdateTable(Table newTable);
+    }
 }

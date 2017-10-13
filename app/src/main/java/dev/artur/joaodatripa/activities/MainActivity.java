@@ -18,13 +18,15 @@ import dev.artur.joaodatripa.fragments.ItemsFragment;
 import dev.artur.joaodatripa.fragments.ProductsFragment;
 import dev.artur.joaodatripa.fragments.TablesFragment;
 
-public class MainActivity extends AppCompatActivity implements ItemsFragment.OnOrderingListener {
+public class MainActivity extends AppCompatActivity implements ItemsFragment.OnOrderingListener, TablesFragment.OnUpdateTableListener {
 
-    final ArrayList<Table> tableArrayList = new ArrayList<>();
+    static ArrayList<Table> tableArrayList = new ArrayList<>();
+
     Toolbar toolbar;
     ViewPager viewPager;
     MyPagerAdapter adapter;
     TabLayout tabLayout;
+
     ItemsFragment mItemsFragments;
     ProductsFragment productsFragment;
     TablesFragment mTablesFragment;
@@ -99,5 +101,10 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.OnO
         // O pedido está aqui!
         // Jogar na table correta
         tableArrayList.get(order.getTableNumber() - 1).receiveOrder(order);
+    }
+
+    @Override
+    public void onUpdateTable(Table newTable) {
+        tableArrayList.get(newTable.getNumber() - 1).updateValues(newTable);
     }
 }

@@ -13,14 +13,12 @@ public class Table implements Serializable {
     private final String AVAILABLE_TABLE = "Disponível";
     private final String RESERVED_TABLE = "Reservado";
     private final String OCCUPIED_TABLE = "Ocupado";
-
+    public boolean tableSet = false;
     private int number;
     private String tableTittle;
     private String tableSummary;
     private double totalPrice;
-
     private ArrayList<Order> orders;
-
     /**
      * Public constructor for a Table object.
      *
@@ -40,6 +38,10 @@ public class Table implements Serializable {
         return tableTittle;
     }
 
+    public void setTableTittle(String tableTittle) {
+        this.tableTittle = tableTittle;
+    }
+
     public String getTableSummary() {
         return tableSummary;
     }
@@ -52,5 +54,10 @@ public class Table implements Serializable {
         if (order.getTableNumber() == getNumber()) {
             this.tableSummary += order.getOrderNote();
         }
+    }
+
+    public void updateValues(Table newTable) {
+        this.tableTittle = newTable.getTableTittle();
+        this.tableSet = newTable.tableSet;
     }
 }

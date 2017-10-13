@@ -43,6 +43,7 @@ public class ItemsFragment extends Fragment {
      * The total price of items ordered by the user.
      */
     double totalOrder = 0;
+    private ItemBoard mItemBoard;
 
     public ItemsFragment() {
         // Required empty public constructor
@@ -55,7 +56,7 @@ public class ItemsFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_items, container, false);
 
         // Creates the board to annotate the orders.
-
+        mItemBoard = new ItemBoard(new ArrayList<String>());
         // Create a list of words
         final ArrayList<Item> items = new ArrayList<>();
 
@@ -177,7 +178,7 @@ public class ItemsFragment extends Fragment {
                         toggleColor(view, item);
 
                         //Inserir aqui uma função que descreve a ação realizada(no caso, adiciona um pedido, em texto)
-                        String note = ItemBoard.takeNote(item.getName(), item.getQuantity(), item.getUnitPrice(), totalOrder, token);
+                        String note = mItemBoard.takeNote(item.getName(), item.getQuantity(), item.getUnitPrice(), totalOrder, token);
                         TextView summaryTextView = (TextView) getActivity().findViewById(R.id.order_summary_text_view);
                         summaryTextView.setText(note);
                     }
@@ -203,7 +204,7 @@ public class ItemsFragment extends Fragment {
                         toggleColor(view, item);
 
                         //Inserir aqui uma função que descreve a ação realizada(no caso, adiciona um pedido, em texto)
-                        String note = ItemBoard.takeNote(item.getName(), item.getQuantity(), item.getUnitPrice(), totalOrder, token);
+                        String note = mItemBoard.takeNote(item.getName(), item.getQuantity(), item.getUnitPrice(), totalOrder, token);
                         TextView summaryTextView = (TextView) getActivity().findViewById(R.id.order_summary_text_view);
                         summaryTextView.setText(note);
                     }
@@ -265,7 +266,7 @@ public class ItemsFragment extends Fragment {
                     final Spinner tableSpinner = (Spinner) mView.findViewById(R.id.spinner_tables);
                     EditText obsEditText = (EditText) mView.findViewById(R.id.et_observation_notes);
 
-                    mOrderSummary.setText(ItemBoard.makeText());
+                    mOrderSummary.setText(mItemBoard.makeText());
                     mOrderSummary.setMovementMethod(new ScrollingMovementMethod());
 
                     final String[] tablesArray = {"Escolha uma mesa:",
@@ -303,7 +304,7 @@ public class ItemsFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             if (table[0] != -1) {
-                                Order newOrder = new Order(ItemBoard.makeText(), table[0], observationNotes);
+                                Order newOrder = new Order(mItemBoard.makeText(), table[0], observationNotes);
 
                                 mListener.onOrdering(newOrder);
 
@@ -316,7 +317,9 @@ public class ItemsFragment extends Fragment {
                                 // A melhor opção realmente é o método cancel() ?
                                 dialog.cancel();
 
-                                Toast.makeText(getContext(), "Pedido realizado para a mesa: " + +table[0], Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), "Pedido realizado para a mesa: " + +table[0], Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getContext(), "Escolha uma mesa... ", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

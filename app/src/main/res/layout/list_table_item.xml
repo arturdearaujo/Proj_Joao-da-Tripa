@@ -9,9 +9,16 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/space"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_spacing_16_dp"
+        android:background="#ffffff" />
+
+    <TextView
         android:id="@+id/table_number"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_below="@id/space"
         android:layout_marginBottom="6dp"
         android:background="@color/colorPrimary"
         android:gravity="center_vertical"
@@ -31,14 +38,4 @@
         android:textColor="@color/tan_background"
         tools:text="Disponível" />
 
-    <TextView
-        android:id="@+id/total_order_in_table_text_view"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/main_client_name"
-        android:layout_margin="6dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:textColor="@color/tan_background"
-        tools:text="R$ 32,50" />
 </RelativeLayout>
