@@ -41,7 +41,30 @@
             android:textColor="@color/colorPrimary"
             tools:text="R$ xxx,xx" />
 
+        <LinearLayout
+            android:id="@+id/exchangeLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Troco: R$ "
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/exchangeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                tools:text="00,00" />
+        </LinearLayout>
+
         <Button
+            android:id="@+id/button_activity_payment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

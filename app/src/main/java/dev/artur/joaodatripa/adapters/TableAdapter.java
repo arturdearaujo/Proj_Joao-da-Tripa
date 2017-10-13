@@ -38,10 +38,10 @@ public class TableAdapter extends ArrayAdapter<Table> {
         final Table currentTable = getItem(position);
 
 
-        TextView tableNumber = (TextView) listItemView.findViewById(R.id.table_number);
+        TextView tableNumber = listItemView.findViewById(R.id.table_number);
         tableNumber.setText(String.valueOf("Mesa " + currentTable.getNumber()));
 
-        TextView tableTittle = (TextView) listItemView.findViewById(R.id.main_client_name);
+        TextView tableTittle = listItemView.findViewById(R.id.main_client_name);
         tableTittle.setText(currentTable.getTableTittle());
 
         return listItemView;

@@ -29,6 +29,8 @@ public class TablesFragment extends Fragment {
 
     private static final int REQUEST_1 = 1;
 
+    GridView listView;
+    TableAdapter adapter;
     OnUpdateTableListener mListener;
 
     public TablesFragment() {
@@ -49,8 +51,8 @@ public class TablesFragment extends Fragment {
         // ... = ((MainActivity)this.getActivity()).getSomething() /
         final ArrayList<Table> mTables = ((MainActivity) this.getActivity()).getTables();
 
-        TableAdapter adapter = new TableAdapter(getContext(), mTables);
-        GridView listView = (GridView) rootView.findViewById(R.id.list_of_tables);
+        adapter = new TableAdapter(getContext(), mTables);
+        listView = (GridView) rootView.findViewById(R.id.list_of_tables);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -73,6 +75,13 @@ public class TablesFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // This handy function refreshes the ListView.
+        adapter.notifyDataSetChanged();
     }
 
     @Override

@@ -24,6 +24,7 @@ public class TableActivity extends AppCompatActivity {
     TextView tableTittle;
     TextView tableSummary;
     TextView tableTotal;
+    Button paymentButton;
 
     Table mTable;
     ArrayList<Order> mOrders;
@@ -36,16 +37,17 @@ public class TableActivity extends AppCompatActivity {
         Intent tableIntent = getIntent();
         mTable = (Table) tableIntent.getSerializableExtra("table data");
 
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+        final AlertDialog tableTittleDialog;
+
         if (!mTable.tableSet) {
-            AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
-            View mView = getLayoutInflater().inflate(R.layout.dialog_table_tittle, null);
-            final AlertDialog dialog;
+            View dialogTableTittleView = getLayoutInflater().inflate(R.layout.dialog_table_tittle, null);
 
-            mBuilder.setView(mView);
-            dialog = mBuilder.create();
+            mBuilder.setView(dialogTableTittleView);
+            tableTittleDialog = mBuilder.create();
 
-            Button confirmTableTittleButton = mView.findViewById(R.id.button_register_table_tittle);
-            final EditText tableTitleEditText = mView.findViewById(R.id.et_client_name);
+            Button confirmTableTittleButton = dialogTableTittleView.findViewById(R.id.button_register_table_tittle);
+            final EditText tableTitleEditText = dialogTableTittleView.findViewById(R.id.et_client_name);
 
             confirmTableTittleButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -64,21 +66,58 @@ public class TableActivity extends AppCompatActivity {
                         tableResultIntent.putExtra("tableUpdate", mTable);
                         setResult(RESULT_FIRST_USER, tableResultIntent);
 
-                        dialog.cancel();
+                        tableTittleDialog.cancel();
                     } else {
                         Toast.makeText(TableActivity.this, "Escreva algo para ajudar a lembrar do cliente..", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
+
             // Show the dialog.
-            dialog.show();
-
-
+            tableTittleDialog.show();
         }
-//        Intent orderIntent = getIntent();
 
-//        Order order = (Order) orderIntent.getSerializableExtra("order");
-//        mOrders.add(order);
+        paymentButton = (Button) findViewById(R.id.button_activity_payment);
+
+        final View dialogPaymentView = getLayoutInflater().inflate(R.layout.dialog_payment, null);
+        final AlertDialog paymentDialog;
+        mBuilder.setView(dialogPaymentView);
+        paymentDialog = mBuilder.create();
+        final double[] value = new double[1];
+        final EditText paymentValueEditText = dialogPaymentView.findViewById(R.id.edit_text_payment_value);
+        final Button receivePayment = dialogPaymentView.findViewById(R.id.button_payment);
+
+        paymentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (mTable.getTotalPrice() > 0) {
+
+
+                    receivePayment.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            value[0] = Double.valueOf(paymentValueEditText.getText().toString());
+
+                            if (value[0] >= 0) {
+                                mTable.receivePayment(value[0]);
+
+                                Intent tableResultIntent = new Intent();
+                                tableResultIntent.putExtra("tableUpdate", mTable);
+                                setResult(RESULT_OK, tableResultIntent);
+
+                                tableTotal.setText(moneyFormat(valueOf(mTable.getTotalPrice())));
+
+                                paymentDialog.cancel();
+                            }
+                        }
+                    });
+                    paymentDialog.show();
+                } else {
+                    Toast.makeText(TableActivity.this, "A conta já está paga.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -93,13 +132,6 @@ public class TableActivity extends AppCompatActivity {
 
         tableTotal = (TextView) findViewById(R.id.table_total);
         tableTotal.setText(moneyFormat(valueOf(mTable.getTotalPrice())));
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Toast.makeText(this, "Activity destroyed", Toast.LENGTH_SHORT).show();
-
     }
 
     public String moneyFormat(double value) {

@@ -60,4 +60,8 @@ public class Table implements Serializable {
         this.tableTittle = newTable.getTableTittle();
         this.tableSet = newTable.tableSet;
     }
+
+    public void receivePayment(double value) {
+        this.totalPrice = -value;
+    }
 }
