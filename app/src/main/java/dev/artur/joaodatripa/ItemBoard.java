@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 public class ItemBoard {
 
-    private final ArrayList<String> orderSummaryItem;
-    private ArrayList<String> orderSummaryName;
+    private static ArrayList<String> orderSummaryItem;
+    private static ArrayList<String> orderSummaryName;
 
     public ItemBoard(ArrayList<String> orderSummary) {
         this.orderSummaryItem = orderSummary;
@@ -23,7 +23,7 @@ public class ItemBoard {
 
     }
 
-    public String takeNote(String name, int newQuantity, double unitPrice, double orderTotalPrice, boolean token) {
+    public static String takeNote(String name, int newQuantity, double unitPrice, double orderTotalPrice, boolean token) {
 
         if (token) {
             double itemTotalPrice = newQuantity * unitPrice;
@@ -67,7 +67,7 @@ public class ItemBoard {
         return makeText();
     }
 
-    public String makeText() {
+    public static String makeText() {
         String note = "Resumo:";
         for (int i = 1; i < orderSummaryItem.size(); i++) {
             note += orderSummaryItem.get(i);
