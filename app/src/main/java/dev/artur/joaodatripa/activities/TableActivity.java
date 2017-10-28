@@ -90,7 +90,7 @@ public class TableActivity extends AppCompatActivity {
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // CONTINUAR AQUI.. (pista: fazer o totalPrice funcionar)
                 if (mTable.getTotalPrice() > 0) {
 
 
