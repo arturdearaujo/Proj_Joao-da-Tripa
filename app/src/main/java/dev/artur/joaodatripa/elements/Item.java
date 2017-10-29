@@ -79,7 +79,7 @@ public class Item implements Serializable {
             quantity++;
             return true;
         } else {
-            Log.e(TAG, "increment: out of bounds");
+            Log.e(TAG, "pedidos demais!!!");
             return false;
         }
     }

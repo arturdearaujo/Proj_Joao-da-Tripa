@@ -98,8 +98,7 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.OnO
 
     @Override
     public void onOrdering(Order order) {
-        // O pedido está aqui!
-        // Jogar na table correta
+        // Jogar na table correta (quem recebe é a classe Table)
         tableArrayList.get(order.getTableNumber() - 1).receiveOrder(order);
     }
 

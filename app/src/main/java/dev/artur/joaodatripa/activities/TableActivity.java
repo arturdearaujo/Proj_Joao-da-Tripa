@@ -11,10 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 import dev.artur.joaodatripa.R;
-import dev.artur.joaodatripa.elements.Order;
 import dev.artur.joaodatripa.elements.Table;
 
 import static java.lang.Double.valueOf;
@@ -27,7 +25,6 @@ public class TableActivity extends AppCompatActivity {
     Button paymentButton;
 
     Table mTable;
-    ArrayList<Order> mOrders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
