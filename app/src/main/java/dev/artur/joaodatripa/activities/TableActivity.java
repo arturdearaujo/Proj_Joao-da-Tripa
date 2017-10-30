@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,36 +83,106 @@ public class TableActivity extends AppCompatActivity {
         paymentDialog = mBuilder.create();
         final double[] value = new double[1];
         final EditText paymentValueEditText = dialogPaymentView.findViewById(R.id.edit_text_payment_value);
-        final Button receivePayment = dialogPaymentView.findViewById(R.id.button_payment);
+        final Button receivePaymentButton = dialogPaymentView.findViewById(R.id.button_payment);
+        final LinearLayout[] receivedValueField = new LinearLayout[1];
+        final TextView[] receivedTextView = new TextView[1];
+        final LinearLayout[] changeField = new LinearLayout[1];
+        final TextView[] changeTextView = new TextView[1];
+
+        final TextView[] adviseTextView = new TextView[1];
+        adviseTextView[0] = dialogPaymentView.findViewById(R.id.partial_payment_advise_text_view);
 
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // CONTINUAR AQUI.. (pista: fazer o totalPrice funcionar)
                 if (mTable.getTotalPrice() > 0) {
+                    paymentDialog.show();
 
-
-                    receivePayment.setOnClickListener(new View.OnClickListener() {
+                    receivePaymentButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+
                             value[0] = Double.valueOf(paymentValueEditText.getText().toString());
 
-                            if (value[0] >= 0) {
-                                mTable.receivePayment(value[0]);
+                            int aux = Double.compare(value[0], mTable.getTotalPrice());
+//                            double change = mTable.receivePayment(value[0]);
 
-                                Intent tableResultIntent = new Intent();
-                                tableResultIntent.putExtra("tableUpdate", mTable);
-                                setResult(RESULT_OK, tableResultIntent);
+                            receivedValueField[0] = findViewById(R.id.payed_value_LinearLayout);
+                            receivedTextView[0] = findViewById(R.id.payed_value_TextView);
+                            changeField[0] = findViewById(R.id.exchange_LinearLayout);
+                            changeTextView[0] = findViewById(R.id.exchange_TextView);
 
-                                tableTotal.setText(moneyFormat(valueOf(mTable.getTotalPrice())));
+                            // se igual, o troco é 0. exibir ok, e limpar a mesa;
+                            if ((aux == 0)) {
+                                receivedValueField[0].setVisibility(View.VISIBLE);
+                                changeField[0].setVisibility(View.VISIBLE);
+
+                                receivedTextView[0].setText(moneyFormat(value[0]));
+                                changeTextView[0].setText(moneyFormat(0));
+
+                                Toast.makeText(TableActivity.this, "A conta foi paga com sucesso! :)", Toast.LENGTH_SHORT).show();
 
                                 paymentDialog.cancel();
+
+                                mTable.confirmPayment();
+                                // falta enviar a mesa para a lista de mesas da main activity.
+
+
+                                // se pago foi maior, exibe o troco e limpa a mesa
+                            } else if (aux > 0) {
+                                receivedValueField[0].setVisibility(View.VISIBLE);
+                                changeField[0].setVisibility(View.VISIBLE);
+
+                                receivedTextView[0].setText(moneyFormat(value[0]));
+                                changeTextView[0].setText(moneyFormat(value[0] - mTable.getTotalPrice()));
+
+                                Toast.makeText(TableActivity.this, "A conta foi paga, confira o troco :)", Toast.LENGTH_SHORT).show();
+                                paymentDialog.cancel();
+
+                                mTable.confirmPayment();
+                                // se o valor pago não foi suficiente, tratar com mais atenção...
+                            } else {
+                                final TextView adviseTextView = dialogPaymentView.findViewById(R.id.partial_payment_advise_text_view);
+                                final Button cancelPaymentButton = dialogPaymentView.findViewById(R.id.button_cancel_payment);
+                                final Button confirmPaymentButton = dialogPaymentView.findViewById(R.id.confirm_payment_button);
+
+                                adviseTextView.setVisibility(View.VISIBLE);
+                                cancelPaymentButton.setVisibility(View.VISIBLE);
+                                confirmPaymentButton.setVisibility(View.VISIBLE);
+
+                                receivePaymentButton.setVisibility(View.GONE);
+                                paymentValueEditText.setEnabled(false);
+
+                                cancelPaymentButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        adviseTextView.setVisibility(View.GONE);
+                                        cancelPaymentButton.setVisibility(View.GONE);
+                                        confirmPaymentButton.setVisibility(View.GONE);
+                                        receivePaymentButton.setVisibility(View.VISIBLE);
+                                        paymentValueEditText.setEnabled(true);
+                                        paymentValueEditText.clearComposingText();
+
+                                        paymentDialog.cancel();
+                                    }
+                                });
+
+                                confirmPaymentButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        mTable.confirmPayment();
+                                        paymentDialog.cancel();
+                                        Toast.makeText(getApplicationContext(), "o valor pago foi deduzido da conta (ainda n funciona..)", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
+
+                            Intent tableResultIntent = new Intent();
+                            tableResultIntent.putExtra("tableUpdate", mTable);
+                            setResult(RESULT_OK, tableResultIntent);
                         }
                     });
-                    paymentDialog.show();
-                } else {
-                    Toast.makeText(TableActivity.this, "A conta já está paga.", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -129,6 +200,14 @@ public class TableActivity extends AppCompatActivity {
 
         tableTotal = (TextView) findViewById(R.id.table_total);
         tableTotal.setText(moneyFormat(valueOf(mTable.getTotalPrice())));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Intent tableResultIntent = new Intent();
+        tableResultIntent.putExtra("tableUpdate", mTable);
+        setResult(RESULT_OK, tableResultIntent);
     }
 
     public String moneyFormat(double value) {

@@ -78,6 +78,14 @@ public class Table implements Serializable {
                     mItemsListQuantities.set(index, aux);
                 }
             }
+            updateTotalPrice();
+        }
+    }
+
+    private void updateTotalPrice() {
+        totalPrice = 0;
+        for (int i = 0; i < mItemsListPrices.size(); i++) {
+            totalPrice += (mItemsListPrices.get(i) * mItemsListQuantities.get(i));
         }
     }
 
@@ -97,7 +105,21 @@ public class Table implements Serializable {
         this.tableSet = newTable.tableSet;
     }
 
-    public void receivePayment(double value) {
-        this.totalPrice = -value;
+    private void createAmend(double value) {
+        this.totalPrice = (value - totalPrice);
+
+    }
+
+    // a ideia é chamar essa função somente quando a mesa ja tiver finalizado a conta. Não confundir com receivePayment()
+    public void confirmPayment() {
+        clearTable();
+        this.totalPrice = 0;
+    }
+
+    private void clearTable() {
+        mItemsListNames.clear();
+        mItemsListQuantities.clear();
+        mItemsListPrices.clear();
+        this.totalPrice = 0;
     }
 }
