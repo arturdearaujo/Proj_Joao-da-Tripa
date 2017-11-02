@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.OnO
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
         // Set the content of the activity to use the activity_main.xml layout file
@@ -119,6 +118,20 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.OnO
 
     @Override
     public void onUpdateTable(Table newTable) {
-        tableArrayList.get(newTable.getNumber() - 1).updateValues(newTable);
+//        tableArrayList.get(newTable.getNumber() - 1).updateValues(newTable);
+        tableArrayList.set(newTable.getNumber() - 1, newTable);
+
+    }
+
+    @Override
+    public void onAmendTable(Table amendedTable) {
+        tableArrayList.set(amendedTable.getNumber() - 1, amendedTable);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        // colocar um breakpoint aqui para estudar quando a main é destruida..
+        super.onDestroy();
     }
 }

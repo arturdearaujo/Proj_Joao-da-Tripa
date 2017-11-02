@@ -35,7 +35,9 @@ import dev.artur.joaodatripa.activities.TableActivity;
 import dev.artur.joaodatripa.adapters.TableAdapter;
 import dev.artur.joaodatripa.elements.Table;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_FIRST_USER;
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -102,15 +104,34 @@ public class TablesFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == REQUEST_1) {
+//            if (resultCode == RESULT_FIRST_USER) {
+//                Table newTable = (Table) data.getSerializableExtra("tableUpdate");
+//                // Talvez o jeito aqui seja enviar outro intent para atualizar os valores na MainActivity...
+//                mListener.onUpdateTable(newTable);
+//
+//            }
+//        }
         if (requestCode == REQUEST_1) {
-            if (resultCode == RESULT_FIRST_USER) {
-                Table newTable = (Table) data.getSerializableExtra("tableUpdate");
-                // Talvez o jeito aqui seja enviar outro intent para atualizar os valores na MainActivity...
-                mListener.onUpdateTable(newTable);
-
+            switch (resultCode) {
+                case RESULT_FIRST_USER:
+                case RESULT_OK:
+                    Table newTable = (Table) data.getSerializableExtra("tableUpdate");
+                    if (newTable != null) {
+                        mListener.onUpdateTable(newTable);
+                    }
+                    // Talvez o jeito aqui seja enviar outro intent para atualizar os valores na MainActivity...
+                    Table amendedTable = (Table) data.getSerializableExtra("amendedTable");
+                    if (amendedTable != null) {
+                        mListener.onAmendTable(amendedTable);
+                    }
+                    break;
+                case RESULT_CANCELED:
+                    Toast.makeText(getContext(), "teste", Toast.LENGTH_SHORT).show();
+                    break;
             }
         }
-        Toast.makeText(getContext(), "teste", Toast.LENGTH_SHORT).show();
+
 
     }
 
@@ -126,5 +147,7 @@ public class TablesFragment extends Fragment {
 
     public interface OnUpdateTableListener {
         void onUpdateTable(Table newTable);
+
+        void onAmendTable(Table newTable);
     }
 }

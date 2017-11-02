@@ -15,6 +15,7 @@
  */
 package dev.artur.joaodatripa.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -192,13 +193,18 @@ public class TableActivity extends AppCompatActivity {
 
                                         paymentDialog.cancel();
                                         Toast.makeText(getApplicationContext(), "o valor pago foi deduzido da conta (ainda n funciona..)", Toast.LENGTH_SHORT).show();
+
+                                        // aqui agr só preciso enviar a mesa de volta para a lista das mesas.
+                                        Intent tableIntent = new Intent();
+                                        tableIntent.putExtra("amendedTable", mTable);
+                                        setResult(Activity.RESULT_OK, tableIntent);
                                     }
                                 });
                             }
 
                             Intent tableResultIntent = new Intent();
                             tableResultIntent.putExtra("tableUpdate", mTable);
-                            setResult(RESULT_OK, tableResultIntent);
+                            setResult(RESULT_FIRST_USER, tableResultIntent);
                         }
                     });
 
@@ -214,11 +220,13 @@ public class TableActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         Intent tableResultIntent = new Intent();
         tableResultIntent.putExtra("tableUpdate", mTable);
         setResult(RESULT_OK, tableResultIntent);
+        finish();
+
     }
 
     public String moneyFormat(double value) {
