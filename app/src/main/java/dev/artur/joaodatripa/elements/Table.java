@@ -17,6 +17,7 @@ package dev.artur.joaodatripa.elements;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Table class.
@@ -100,7 +101,11 @@ public class Table implements Serializable {
     private void updateTotalPrice() {
         totalPrice = 0;
         for (int i = 0; i < mItemsListPrices.size(); i++) {
-            totalPrice += (mItemsListPrices.get(i) * mItemsListQuantities.get(i));
+            if (mItemsListQuantities.get(i) != 0) {
+                totalPrice += (mItemsListPrices.get(i) * mItemsListQuantities.get(i));
+            } else {
+                totalPrice += (mItemsListPrices.get(i));
+            }
         }
     }
 
@@ -109,8 +114,13 @@ public class Table implements Serializable {
         int NAME_MIN_LENGTH = 15;
         for (int i = 0; i < mItemsListNames.size(); i++) {
             String name = mItemsListNames.get(i);
-            double itemTotalPrice = mItemsListQuantities.get(i) * mItemsListPrices.get(i);
-            noteLine.append("\n").append(mItemsListQuantities.get(i)).append("*\t").append(name.length() < NAME_MIN_LENGTH ? name : name.substring(0, NAME_MIN_LENGTH)).append("\t\tR$").append(mItemsListPrices.get(i)).append("\t\tR$").append(String.valueOf(itemTotalPrice));
+            if (mItemsListQuantities.get(i) != 0) {
+                double itemTotalPrice = mItemsListQuantities.get(i) * mItemsListPrices.get(i);
+                noteLine.append("\n").append(mItemsListQuantities.get(i)).append("*\t").append(name.length() < NAME_MIN_LENGTH ? name : name.substring(0, NAME_MIN_LENGTH)).append("\t\tR$").append(mItemsListPrices.get(i)).append("\t\tR$").append(String.valueOf(itemTotalPrice));
+            } else {
+                noteLine.append("\n\n").append(name).append("\n");
+
+            }
         }
         return noteLine.toString();
     }
@@ -120,9 +130,22 @@ public class Table implements Serializable {
         this.tableSet = newTable.tableSet;
     }
 
-    private void createAmend(double value) {
-        this.totalPrice = (value - totalPrice);
+    public String createAmend(double value) {
+        this.totalPrice = (totalPrice - value);
+        StringBuilder amendment = new StringBuilder();
 
+        String currentTime = Calendar.getInstance().getTime().toString();
+
+        amendment.append("Pagamento parcial de R$ ").append(String.valueOf(value)).append(" em: ").append(currentTime);
+
+        mItemsListQuantities.add(0);
+        mItemsListNames.add(amendment.toString());
+        mItemsListPrices.add((-1) * value);
+
+        String sumary = createSummary();
+        updateTotalPrice();
+
+        return amendment.toString();
     }
 
     // a ideia é chamar essa função somente quando a mesa ja tiver finalizado a conta. Não confundir com receivePayment()

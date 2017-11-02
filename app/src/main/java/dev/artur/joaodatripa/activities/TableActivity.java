@@ -185,7 +185,11 @@ public class TableActivity extends AppCompatActivity {
                                 confirmPaymentButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        mTable.confirmPayment();
+//                                        mTable.confirmPayment();
+                                        String note = mTable.createAmend(value[0]);
+
+                                        updateInterfaces();
+
                                         paymentDialog.cancel();
                                         Toast.makeText(getApplicationContext(), "o valor pago foi deduzido da conta (ainda n funciona..)", Toast.LENGTH_SHORT).show();
                                     }
@@ -206,15 +210,7 @@ public class TableActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        tableTittle = (TextView) findViewById(R.id.table_title);
-        tableTittle.setText(mTable.getTableTittle());
-
-        tableSummary = (TextView) findViewById(R.id.table_summary);
-        tableSummary.setText(mTable.getTableSummary());
-//        tableSummary.setText("(exemplo)\n01\tÁgua de Coco\t\tR$3,00\n01\tMeota\t\tR$8,00");
-
-        tableTotal = (TextView) findViewById(R.id.table_total);
-        tableTotal.setText(moneyFormat(valueOf(mTable.getTotalPrice())));
+        updateInterfaces();
     }
 
     @Override
@@ -228,5 +224,17 @@ public class TableActivity extends AppCompatActivity {
     public String moneyFormat(double value) {
         DecimalFormat formatter = new DecimalFormat("0.00");
         return "R$ " + formatter.format(value);
+    }
+
+    public void updateInterfaces() {
+        tableTittle = (TextView) findViewById(R.id.table_title);
+        tableTittle.setText(mTable.getTableTittle());
+
+        tableSummary = (TextView) findViewById(R.id.table_summary);
+        tableSummary.setText(mTable.getTableSummary());
+//        tableSummary.setText("(exemplo)\n01\tÁgua de Coco\t\tR$3,00\n01\tMeota\t\tR$8,00");
+
+        tableTotal = (TextView) findViewById(R.id.table_total);
+        tableTotal.setText(moneyFormat(valueOf(mTable.getTotalPrice())));
     }
 }
