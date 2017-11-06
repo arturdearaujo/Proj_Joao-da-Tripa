@@ -38,6 +38,7 @@ public class TableActivity extends AppCompatActivity {
 
     TextView tableTittle;
     TextView tableSummary;
+    TextView tableLinePrice;
     TextView tableTotal;
     Button paymentButton;
 
@@ -240,6 +241,9 @@ public class TableActivity extends AppCompatActivity {
 
         tableSummary = (TextView) findViewById(R.id.table_summary);
         tableSummary.setText(mTable.getTableSummary());
+
+        tableLinePrice = (TextView) findViewById(R.id.table_line_price);
+        tableLinePrice.setText(mTable.getTableLinePrices());
 //        tableSummary.setText("(exemplo)\n01\tÁgua de Coco\t\tR$3,00\n01\tMeota\t\tR$8,00");
 
         tableTotal = (TextView) findViewById(R.id.table_total);

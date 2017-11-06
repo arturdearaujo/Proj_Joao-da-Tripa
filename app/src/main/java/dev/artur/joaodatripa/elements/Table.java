@@ -16,6 +16,7 @@
 package dev.artur.joaodatripa.elements;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -76,6 +77,11 @@ public class Table implements Serializable {
         return createSummary();
     }
 
+    // Aqui então será montada a String para exibir os itens da mesa..
+    public String getTableLinePrices() {
+        return createLinePrices();
+    }
+
     public double getTotalPrice() {
         return totalPrice;
     }
@@ -111,14 +117,28 @@ public class Table implements Serializable {
 
     private String createSummary() {
         StringBuilder noteLine = new StringBuilder();
-        int NAME_MIN_LENGTH = 15;
+        int NAME_MIN_LENGTH = 20;
+        for (int i = 0; i < mItemsListNames.size(); i++) {
+            String name = mItemsListNames.get(i);
+            if (mItemsListQuantities.get(i) != 0) {
+                noteLine.append("\n").append(mItemsListQuantities.get(i)).append("*\t").append(name.length() < NAME_MIN_LENGTH ? name : name.substring(0, NAME_MIN_LENGTH)).append("\t\tR$").append(mItemsListPrices.get(i));
+            } else {
+                noteLine.append("\n\n").append(name).append("\n");
+
+            }
+        }
+        return noteLine.toString();
+    }
+
+    private String createLinePrices() {
+        StringBuilder noteLine = new StringBuilder();
         for (int i = 0; i < mItemsListNames.size(); i++) {
             String name = mItemsListNames.get(i);
             if (mItemsListQuantities.get(i) != 0) {
                 double itemTotalPrice = mItemsListQuantities.get(i) * mItemsListPrices.get(i);
-                noteLine.append("\n").append(mItemsListQuantities.get(i)).append("*\t").append(name.length() < NAME_MIN_LENGTH ? name : name.substring(0, NAME_MIN_LENGTH)).append("\t\tR$").append(mItemsListPrices.get(i)).append("\t\tR$").append(String.valueOf(itemTotalPrice));
+                noteLine.append(moneyFormat(itemTotalPrice));
             } else {
-                noteLine.append("\n\n").append(name).append("\n");
+                noteLine.append("\n---");
 
             }
         }
@@ -159,5 +179,10 @@ public class Table implements Serializable {
         mItemsListQuantities.clear();
         mItemsListPrices.clear();
         this.totalPrice = 0;
+    }
+
+    private String moneyFormat(double value) {
+        DecimalFormat formatter = new DecimalFormat("0.00");
+        return "\nR$ " + formatter.format(value);
     }
 }
